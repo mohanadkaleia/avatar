@@ -5,6 +5,7 @@ from app.library import canvas
 from app.library import face
 from app.library import eyes
 from app.library import mouth
+from app.library import persistor
 from PIL import Image
 
 bp = Blueprint("avatar", __name__)
@@ -24,10 +25,9 @@ def generate():
     f = face.Face(c.get())
     e = eyes.Eyes(f.get())
     m = mouth.Mouth(e.get())
-    im = Image.fromarray(m.get())
-    im.save("img.png")
-    return "avatar is generated"
-
+    
+    name = persistor.persist(m.get())    
+    return name + " avatar is generated"
 
 
 @bp.errorhandler(404)
