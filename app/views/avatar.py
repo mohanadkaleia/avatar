@@ -1,3 +1,5 @@
+import app.utilities.logger as logger
+
 from flask import Blueprint
 from app.library import canvas
 from app.library import face
@@ -5,16 +7,19 @@ from app.library import eyes
 from app.library import mouth
 from PIL import Image
 
-
 bp = Blueprint("avatar", __name__)
+log = logger.get_logger(__name__)
 
 @bp.route("/")
 def home():
+    log.info("request /")
     return "wip - something cool is coming up 👻"
 
 
 @bp.route("/generate")
-def generate():    
+def generate():  
+    log.info("request /generate")
+
     c = canvas.Canvas(24, 24)
     f = face.Face(c.get())
     e = eyes.Eyes(f.get())
